@@ -1,0 +1,17 @@
+#include "totvs.ch"
+
+/*/{Protheus.doc} test
+    (long_description)
+    @type Function
+    @author user
+    @since 12/05/2022
+    @version version
+    @param param_name, param_type, param_descr
+    @return return_var, return_type, return_description
+    @example
+    (examples)
+    @see (links_or_references)
+    /*/
+user Function test()
+    MsgYesNo("Oi, você está bem?", "Pergunta 01")
+Return

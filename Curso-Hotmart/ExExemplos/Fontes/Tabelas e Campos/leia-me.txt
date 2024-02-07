@@ -1,0 +1,86 @@
+� necess�rio criar a seguinte estrutura de tabelas
+
++===+
+
+Tabela ZD1 - Artistas - Totalmente Compartilhada
+Campos:
+    Campo      | Tipo      | Tamanho | Contexto | Modo       | T�tulo          | Inic. Padr�o                   | Obrigat�rio | Browse | Usado
+    ZD1_CODIGO | Caractere |       6 | Real     | Visualizar | C�digo          | GetSXENum("ZD1", "ZD1_CODIGO") | N�o         | Sim    | Sim
+    ZD1_NOME   | Caractere |     100 | Real     | Alterar    | Nome            |                                | Sim         | Sim    | Sim
+    ZD1_DTFORM | Data      |       8 | Real     | Alterar    | Data Forma��o   |                                | N�o         | N�o    | Sim
+    ZD1_OBSERV | Caractere |     100 | Real     | Alterar    | Observa��es     |                                | N�o         | N�o    | Sim
+    ZD1_OK     | Caractere |       2 | Real     | Alterar    | Ok (marcado)    |                                | N�o         | N�o    | N�o
+�ndices:
+    (1): ZD1_FILIAL + ZD1_CODIGO
+
++===+
+
+Consulta Padr�o - ZD1
+    Descri��o: Artistas
+    Tabela ZD1
+    �ndice (1), campos ZD1_CODIGO e ZD1_NOME
+    Retorno ZD1->ZD1_CODIGO
+
++===+
+
+Tabela ZD2 - CDs - Totalmente Compartilhada
+Campos:
+    Campo      | Tipo      | Tamanho | Contexto | Modo       | T�tulo        | Inic. Padr�o                                                                                | Inic. Browse                                                        | Modo Edi��o | Cons Padr�o | Obrigat�rio | Browse
+    ZD2_CD     | Caractere |       6 | Real     | Visualizar | CD            | GetSXENum("ZD2", "ZD1_CD")                                                                  |                                                                     |             |             | N�o         | Sim
+    ZD2_ARTIST | Caractere |       6 | Real     | Alterar    | Artista       |                                                                                             |                                                                     | INCLUI      | ZD1         | Sim         | Sim
+    ZD2_NOME   | Caractere |     100 | Virtual  | Visualizar | Nome Artista  | IIF(INCLUI, "", POSICIONE("ZD1", 1, FWXFILIAL("ZD1") + FWFLDGET("ZD2_ARTIST"), "ZD1_NOME")) | Posicione("ZD1", 1, FWxFilial("ZD1") + ZD2->ZD2_ARTIST, "ZD1_NOME") |             |             | N�o         | Sim
+    ZD2_NOMECD | Caractere |     100 | Real     | Alterar    | Nome CD       |                                                                                             |                                                                     |             |             | Sim         | Sim
+�ndices:
+    (1): ZD2_FILIAL + ZD2_CD
+
++===+
+
+Gatilho
+    Campo:        ZD2_ARTIST
+    Sequencia:    001
+    Cnt. Dominio: ZD2_NOME
+    Tipo:         Primario
+    Regra:        ZD1->ZD1_NOME
+    Posiciona:    Sim
+    Alias:        ZD1
+    Ordem:        1
+    Chave:        FWXFILIAL("ZD1") + FWFLDGET("ZD2_ARTIST")
+
++===+
+
+Tabela ZD3 - Musicas dos CDs - Totalmente Compartilhada
+Campos:
+    Campo      | Tipo      | Tamanho | Contexto | Modo       | T�tulo        | Modo Edi��o | Cons Padr�o | Obrigat�rio | Browse
+    ZD3_CD     | Caractere |       6 | Real     | Alterar    | CD            |             |             | N�o         | Sim
+    ZD3_ITEM   | Caractere |       2 | Real     | Alterar    | Item          |             |             | N�o         | Sim
+    ZD3_MUSICA | Caractere |     100 | Real     | Alterar    | Musica        |             |             | Sim         | Sim
+�ndices:
+    (1): ZD3_FILIAL + ZD3_CD + ZD3_ITEM
+
++===+
+
+Tabela ZD4 - Premia��es - Totalmente Compartilhada
+Campos:
+    Campo      | Tipo      | Tamanho | Contexto | Modo       | T�tulo        | Inic. Padr�o                                                                               | Inic. Browse                                                        | Modo Edi��o | Cons Padr�o | Valida��o de Usu�rio             | Obrigat�rio | Browse
+    ZD4_ANO    | Caractere |       4 | Real     | Visualizar | Ano           |                                                                                             |                                                                     |             |             | ExistChav( "ZD4", &(ReadVar()) )       | N�o         | Sim
+    ZD4_ITEM   | Caractere |       2 | Real     | Alterar    | Item          |                                                                                             |                                                                     |             |             |                                        | N�o         | Sim
+    ZD4_ARTIST | Caractere |       6 | Real     | Alterar    | Artista       |                                                                                             |                                                                     | INCLUI      | ZD1         |                                        | Sim          | Sim
+    ZD4_NOME   | Caractere |     100 | Virtual  | Visualizar | Nome Artista  | IIF(INCLUI, "", Posicione("ZD1", 1, FWxFilial("ZD1") + ZD4->ZD4_ARTIST, "ZD1_NOME"))        | Posicione("ZD1", 1, FWxFilial("ZD1") + ZD4->ZD4_ARTIST, "ZD1_NOME") |             |             |                                        | N�o         | Sim
+    ZD4_PREMIO | Caractere |     100 | Real     | Alterar    | Premio Desc.  |                                                                                             |                                                                     |             |             |                                        | Sim          | Sim
+�ndices:
+    (1): ZD4_FILIAL + ZD4_ANO
+
++===+
+
+Gatilho
+    Campo:        ZD4_ARTIST
+    Sequencia:    001
+    Cnt. Dominio: ZD4_NOME
+    Tipo:         Primario
+    Regra:        ZD1->ZD1_NOME
+    Posiciona:    Sim
+    Alias:        ZD1
+    Ordem:        1
+    Chave:        FWXFILIAL("ZD1") + FWFLDGET("ZD4_ARTIST")
+
++===+
