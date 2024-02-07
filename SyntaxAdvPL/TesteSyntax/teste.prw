@@ -62,7 +62,7 @@ User Function TesteSyntax(param_name)
 
     oBrowse:Activate()
 
-    MsgInfo('A mensagem é: ' + cValToChar(nNumber) + cTeste, 'Título')
+    MsgInfo('A mensagem é: ' + cValToChar(nNumber) + cTeste, 'Título02')
     MSGALERT("TESTE", "TESTE02")
     MSGSTOP('TESTE', "TESTE02")
     MSGYESNO("TESTE", 'TESTE02')
