@@ -24,7 +24,7 @@
 
 User Function TesteSyntax(param_name)
 
-    //Vari·veis e tipos de declaraÁıes
+    //Vari√°veis e tipos de declara√ß√µes
     Local cTeste01  := 'Teste 01'
     Local cAlias    := ""
     Local nNumber   := 123
@@ -62,10 +62,17 @@ User Function TesteSyntax(param_name)
 
     oBrowse:Activate()
 
+<<<<<<< HEAD
     MsgInfo('A mensagem È: ' + cValToChar(nNumber) + cTeste, 'TÌtulo02')
     MSGALERT("TESTE", "TESTE02")
     MSGSTOP('TESTE', "TESTE02")
     MSGYESNO("TESTE", 'TESTE02')
+=======
+    MsgInfo('A mensagem √©: ' + cValToChar(nNumber) + cTeste, 'T√≠tulo 03')
+    MSGALERT("TESTE", "TESTE05")
+    MSGSTOP('TESTE', "TESTE07")
+    MSGYESNO("TESTE", 'TESTE09')
+>>>>>>> 18421619a4a14a2c2e8f9c243d1ee482e429d5e1
 
     DEFINE MSDIALOG oDlg TITLE cTitulo FROM 000,000 TO 080,300 PIXEL
 
@@ -77,20 +84,20 @@ User Function TesteSyntax(param_name)
     cMsg := cString1 + "   Tamanho: " + cValToChar(Len(cString1)) + CRLF
     cMsg += cString2 + "   Tamanho: " + cValToChar(Len(cString2)) + CRLF + CRLF
 
-    //ValidaÁ„o de tamanho de string
+    //Valida√ß√£o de tamanho de string
     if (Len(cString1) > Len(cString2)) .or. (Len(cString1) < Len(cString2))
-        cMsg += "As duas strings s„o de tamanhos diferentes!" + CRLF + CRLF
+        cMsg += "As duas strings s√£o de tamanhos diferentes!" + CRLF + CRLF
     else
-        cMsg += "As duas strings s„o de tamanhos iguais!" + CRLF + CRLF
+        cMsg += "As duas strings s√£o de tamanhos iguais!" + CRLF + CRLF
     ENDIF
 
     if cString1 == cString2
-        cMsg += "As duas strings possuem conte˙do igual!" + CRLF + CRLF
+        cMsg += "As duas strings possuem conte√∫do igual!" + CRLF + CRLF
     else
-        cMsg += "As duas strings possuem conte˙do diferente!" + CRLF + CRLF
+        cMsg += "As duas strings possuem conte√∫do diferente!" + CRLF + CRLF
     endif
 
-    FWAlertError(cMsg, "ManipulaÁ„o de Strings")
+    FWAlertError(cMsg, "Manipula√ß√£o de Strings")
 
     TCQUERY cQuery ALIAS &(cAlias) new
 
@@ -111,7 +118,7 @@ User Function TesteSyntax(param_name)
             MostraErro()
             DisarmTransaction()
         else
-            MsgInfo("Banco 000 cadastrado com sucesso!", "AtenÁ„o")
+            MsgInfo("Banco 000 cadastrado com sucesso!", "Aten√ß√£o")
         endif
 
     End Transaction
@@ -133,39 +140,39 @@ User Function TesteSyntax(param_name)
     Local c := 30
 
     If a == b
-        MsgInfo("a È igual a b")
+        MsgInfo("a √© igual a b")
     EndIf
 
     If a != b
-        MsgInfo("a È diferente de b")
+        MsgInfo("a √© diferente de b")
     EndIf
 
     If a < b
-        MsgInfo("a È menor que b")
+        MsgInfo("a √© menor que b")
     EndIf
 
     If b > a
-        MsgInfo("b È maior que a")
+        MsgInfo("b √© maior que a")
     EndIf
 
     If b >= a
-        MsgInfo("b È maior ou igual a a")
+        MsgInfo("b √© maior ou igual a a")
     EndIf
 
     If a <= b
-        MsgInfo("a È menor ou igual a b")
+        MsgInfo("a √© menor ou igual a b")
     EndIf
 
     If (a < b) .AND. (b < c)
-        MsgInfo("a È menor que b E b È menor que c")
+        MsgInfo("a √© menor que b E b √© menor que c")
     EndIf
 
     If (a < b) .OR. (b > c)
-        MsgInfo("a È menor que b OU b È maior que c")
+        MsgInfo("a √© menor que b OU b √© maior que c")
     EndIf
 
     If !(a == b)
-        MsgInfo("a n„o È igual a b")
+        MsgInfo("a n√£o √© igual a b")
     EndIf
 
 Return return_var
@@ -221,7 +228,7 @@ Static Function ViewDef()
 
     oView := FWFormView():New()
 
-    //Passando o modelo de dados para a vis„o, assim trabalhando juntos
+    //Passando o modelo de dados para a vis√£o, assim trabalhando juntos
     oView:SetModel(oModel)
 
     oView:AddField("VIEWTST", oStructTST, "FORMTST")
@@ -244,14 +251,14 @@ Class zPessoa
     Data nIdade
     Data dNascimento
 
-    //MÈtodos
+    //M√©todos
     Method New() CONSTRUCTOR
     Method MostraIdade()
 EndClass
 
 Method new(pNome, pNomeReduz, pCpfCnpj, pCep, pEndereco, pBairro, pCidade, pUf, pTel, pEmail) class cliente
 
-    // Herdando da outra classe, passando os par‚metros necess·rios
+    // Herdando da outra classe, passando os par√¢metros necess√°rios
     _Super:new(pNome, pNomeReduz, pCpfCnpj, pCep, pEndereco, pBairro, pCidade, pUf, pTel, pEmail)
 
     // self devolve o objeto

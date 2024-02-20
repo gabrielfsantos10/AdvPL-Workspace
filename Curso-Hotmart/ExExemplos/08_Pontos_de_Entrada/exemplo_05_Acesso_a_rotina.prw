@@ -15,7 +15,7 @@ User Function MT410ACE()
     Local nOpcao    := PARAMIXB[1]
 
     //Se for antes das 8h da manhã, não permite prosseguir
-    If Time() <= "08:30:00"
+    If Time() <= "16:30:00"
         lContinua := .F.
 
         //Mas se for um usuário administrador, mostra a pergunta se deseja abrir mesmo assim

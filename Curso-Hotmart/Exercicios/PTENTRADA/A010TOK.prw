@@ -1,35 +1,22 @@
 //Bibliotecas
 #Include "Protheus.ch"
- 
-/*------------------------------------------------------------------------------------------------------*
- | P.E.:  A010TOK                                                                                       |
- | Desc:  Confirmação do cadastro de produtos                                                           |
- | Link:  http://tdn.totvs.com/pages/releaseview.actionçpageId=6087477                                  |
- *------------------------------------------------------------------------------------------------------*/
- 
+
+
 User Function A010TOK()
-    Local aArea := GetArea()
-    Local aAreaB1 := SB1->(GetArea())
-    Local lRet := .T.
-    
-    //Se for inclusão
-    If INCLUI
-        MsgInfo("Estou em uma <b>inclusão</b>!", "Atenção")
+    Local aArea     := FWGetArea()
+    Local lContinua := .T.
+    Local cTipo     := ""
+    Local cGrupo    := ""
+
+    //Pega o campo de vendedor e de tipo de pedido
+    cTipo  := M->B1_TIPO
+    cGrupo := M->B1_GRUPO
+
+    //Se for um pedido normal (tipo N) e o não tiver vendedor preenchido
+    If cTipo == "EM" .and. Empty(cGrupo)
+        ExibeHelp("Help_A010TOK", "Para tipos 'EM'(EMBALAGEM), deve-se preencher o campo 'Grupo'!", "Preencha a informação no campo B1_GRUPO")
+        lContinua := .F.
     EndIf
 
-    //Se for alteração
-    If ALTERA
-        lRet := .F.
-        MsgInfo("NÃO HÁ PERMISSÕES PARA ALTERAÇÃO", "Atenção")
-    EndIf
-
-    //Se for cópia
-    If lCopia
-        MsgInfo("Estou em uma <b>cópia</b>!", "Atenção")
-    EndIf
-
-    // lRet := MsgYesNo("Deseja continuar?", "Atenção")
-     
-    RestArea(aAreaB1)
-    RestArea(aArea)
-Return lRet
+    FWRestArea(aArea)
+Return lContinua
